@@ -1,20 +1,20 @@
 Package: freetube
-Version: 0.23.1
+Version: 0.23.2
 License: AGPL-3.0-or-later
 Vendor: PrestonN <FreeTubeApp@protonmail.com>
 Architecture: amd64
 Maintainer: PrestonN <FreeTubeApp@protonmail.com>
-Installed-Size: 272162
+Installed-Size: 272164
 Depends: libgtk-3-0, libnotify4, libnss3, libxss1, libxtst6, xdg-utils, libatspi2.0-0, libuuid1, libsecret-1-0
 Recommends: libappindicator3-1
 Homepage: https://github.com/FreeTubeApp/FreeTube#readme
 Priority: optional
 Section: default
-Filename: pool/main/f/freetube/freetube_0.23.1_amd64.deb
-Size: 76358302
-SHA256: 6d3ca7c2415e0d739ff3140d3368f5f8268d26ee05e514d1969cb86551665775
-SHA1: 46f16e0121740744e3aaa763a5668a493f7f8420
-MD5sum: 027ad046a9ef426cfc63ce928bc6f166
+Filename: pool/main/f/freetube/freetube_0.23.2_amd64.deb
+Size: 76175638
+SHA256: 02ef86b2b568cb206019942d852161aa242e363461aca28169e961e4fc4966eb
+SHA1: 886b22ed9e6d34d12d6c776769f9356f379aa575
+MD5sum: 45a14fd9398cb89b5df6778ee619e2d2
 Description: 
   A private YouTube client
 
