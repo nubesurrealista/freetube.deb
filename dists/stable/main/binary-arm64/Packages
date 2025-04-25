@@ -1,5 +1,5 @@
 Package: freetube
-Version: 0.23.3
+Version: 0.23.4
 License: AGPL-3.0-or-later
 Vendor: PrestonN <FreeTubeApp@protonmail.com>
 Architecture: arm64
@@ -10,11 +10,11 @@ Recommends: libappindicator3-1
 Homepage: https://github.com/FreeTubeApp/FreeTube#readme
 Priority: optional
 Section: default
-Filename: pool/main/f/freetube/freetube_0.23.3_arm64.deb
-Size: 75181778
-SHA256: 294fdbb0ead58d73add13039c7088c5e277df2489d718ace19a9c09ecc6bd11b
-SHA1: a66fa78da40214b9f5378f90c82a3be41b6b6359
-MD5sum: fd94d80bb36f658af649484fe72d1ac3
+Filename: pool/main/f/freetube/freetube_0.23.4_arm64.deb
+Size: 71839804
+SHA256: c69ef8d6535986501a41edb2fab16a2618edd7b97ce0d3e19d658b60d916b25a
+SHA1: 8c3424e95ec9441736f7cba56440dc0c118ee309
+MD5sum: 1a2dde645c6f2236f66d6175ef1ad691
 Description: 
   A private YouTube client
 
