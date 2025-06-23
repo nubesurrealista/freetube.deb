@@ -1,16 +1,29 @@
----
+# This is a basic workflow to help you get started with Actions
+
 name: Update Deb
+
+# Controls when the workflow will run
 on:
   schedule:
-    - cron: 0 */6 * * *
-  workflow_dispatch: null
+    - cron: '0 */6 * * *'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual run'
+        required: false
+        default: 'Manual trigger'
+
 jobs:
   update:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env:
       PUSH: 1
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+
       - name: Import GPG key
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v6
@@ -23,11 +36,12 @@ jobs:
           echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
           echo "name:        ${{ steps.import_gpg.outputs.name }}"
           echo "email:       ${{ steps.import_gpg.outputs.email }}"
+      # Runs a set of commands using the runners shell
       - name: Install dependencies
         run: |
           sudo apt install reprepro
       - name: Check Update
-        run: >
+        run: |
           function update_repo() {
             ver=$(echo "$1" | tr -d 'v' | cut -d "-" -f 1)
             reprepro --basedir "$(pwd)/meta" includedeb stable "./freetube_${ver}_amd64.deb"
@@ -39,8 +53,7 @@ jobs:
             sed -i -E "s,[a-f0-9]{64}[ ]+pool/main/f/freetube/freetube_[0-9]\.[0-9]+\.[0-9]_amd64.deb,$checksum_amd64," README.md
             echo "PUSH=0" >> $GITHUB_ENV
           }
-
-
+          
           function download_update() {
             if [ -f /tmp/verify.log ]; then rm /tmp/verify.log; fi
             ver=$(echo "$1" | tr -d 'v' | cut -d "-" -f 1)
@@ -75,16 +88,11 @@ jobs:
             fi
             return 1
           }
-
-
+          
           echo 'Checking update...'
-
           releases=$(wget -qO- https://freetubeapp.io/#download | grep -o 'https://github.com/FreeTubeApp/FreeTube/releases/download/.*/freetube_.*_amd64.deb')
-
           latest=$(echo "$releases" | egrep -o 'v[0-9]\.[0-9]+\.[0-9](-beta)?')
-
           echo "PUSH=1" >> $GITHUB_ENV
-
           if [ -f 'last_update' ]; then
               last_update=$(cat last_update)
               if compare "$last_update" "$latest"; then
@@ -103,18 +111,11 @@ jobs:
           fi
       - name: Commit repo changes
         if: ${{ env.PUSH == 0 }}
-        run: >
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN
-          }}@github.com/${{ GITHUB.REPOSITORY }}
-
+        run: |         
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ GITHUB.REPOSITORY }}
           git status
-
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git config --global user.name "github-actions[bot]"
-
           git add last_update dists pool README.md
-
           git commit -m "Update packages"
-
           git push
