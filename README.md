@@ -1,5 +1,8 @@
-# freetube-apt
+# freetube.deb
 Unofficial APT repository for [FreeTube](https://github.com/FreeTubeApp/FreeTube) that will check for updates regularly
+Original from: https://github.com/GHaaAPT/freetube-apt
+
+Personal use
 
 EZ update your FreeTube Debian/Ubuntu client
 
