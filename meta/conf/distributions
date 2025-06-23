@@ -1,7 +1,7 @@
-Origin: ghaaapt.github.io/freetube-apt
-Label: ghaaapt.github.io/freetube-apt
+Origin: https://nubesurrealista.github.io/freetube.deb/
+Label: https://nubesurrealista.github.io/freetube.deb/
 Codename: stable
-Architectures: amd64 arm64 armhf
+Architectures: amd64
 Components: main
-Description: Unofficial APT repository for Debian/Ubuntu client of FreeTube
-SignWith: C2F59EA2C16FEE63AD7D6FEB4166731331A8C873
+Description: Repo para Freetube, uso personal
+SignWith: FB05AD56771A6F7D9C8FA044F8230F725822CEE2
