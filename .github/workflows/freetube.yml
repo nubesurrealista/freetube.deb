@@ -36,27 +36,47 @@ jobs:
       - name: Check Update
         run: |
           function update_repo() {
-            ver=$(echo "$1" | tr -d 'v')  # Keep -beta or other suffixes
+            ver=$(echo "$1" | tr -d 'v' | tr '-' '_')  # Replace - with _ for beta suffix
+            echo "DEBUG: Updating repo with version $ver"
             reprepro --basedir "$(pwd)/meta" includedeb stable "./freetube_${ver}_amd64.deb"
-            if [ -d dists ]; then rm -r dists; fi
-            if [ -d pool ]; then rm -r pool; fi
+            if [ $? -eq 0 ]; then
+              echo "DEBUG: reprepro includedeb successful"
+            else
+              echo "DEBUG: reprepro includedeb failed"
+            fi
+            if [ -d dists ]; then rm -r dists; echo "DEBUG: Removed dists directory"; fi
+            if [ -d pool ]; then rm -r pool; echo "DEBUG: Removed pool directory"; fi
             mv meta/dists ./
             mv meta/pool ./
             checksum_amd64=$(sha256sum pool/main/f/freetube/freetube_${ver}_amd64.deb)
+            echo "DEBUG: Checksum for amd64: $checksum_amd64"
             sed -i -E "s,[a-f0-9]{64}[ ]+pool/main/f/freetube/freetube_[0-9]\.[0-9]+\.[0-9](_beta)?_amd64.deb,$checksum_amd64," README.md
+            if [ $? -eq 0 ]; then
+              echo "DEBUG: README.md updated successfully"
+            else
+              echo "DEBUG: Failed to update README.md"
+            fi
             echo "PUSH=0" >> $GITHUB_ENV
+            echo "DEBUG: Set PUSH=0"
           }
           
           function download_update() {
-            if [ -f /tmp/verify.log ]; then rm /tmp/verify.log; fi
-            ver=$(echo "$1" | tr -d 'v')  # Keep -beta or other suffixes
-            wget -q "https://github.com/FreeTubeApp/FreeTube/releases/download/$1/freetube_${ver}_amd64.deb" --show-progress
+            if [ -f /tmp/verify.log ]; then rm /tmp/verify.log; echo "DEBUG: Removed verify.log"; fi
+            ver=$(echo "$1" | tr -d 'v' | tr '-' '_')  # Replace - with _ for beta suffix
+            url="https://github.com/FreeTubeApp/FreeTube/releases/download/$1/freetube_${ver}_amd64.deb"
+            echo "DEBUG: Attempting to download version $ver from $url"
+            wget -q "$url" --show-progress 2> /tmp/wget_error.log
             if [ "$?" -eq "0" ]; then
               echo 'amd64 downloaded'
+              echo "DEBUG: Download successful for $1"
               echo "$1" > last_update
+              echo "DEBUG: Wrote $1 to last_update"
               return 0
+            else
+              echo "DEBUG: Download failed for $1"
+              echo "DEBUG: wget error: $(cat /tmp/wget_error.log)"
+              return 1
             fi
-            return 1
           }
           
           function compare() {
@@ -68,36 +88,55 @@ jobs:
             latest_big=$(echo "$latest_ver" | cut -d "." -f 1)
             latest_medium=$(echo "$latest_ver" | cut -d "." -f 2)
             latest_small=$(echo "$latest_ver" | cut -d "." -f 3 | cut -d "-" -f 1)
+            echo "DEBUG: Comparing versions: last_ver=$last_ver ($last_big.$last_medium.$last_small) vs latest_ver=$latest_ver ($latest_big.$latest_medium.$latest_small)"
             if [ "$latest_big" -gt "$last_big" ]; then
+                echo "DEBUG: Update needed (major version)"
                 return 0
             elif [ "$latest_big" -eq "$last_big" ] && [ "$latest_medium" -gt "$last_medium" ]; then
+                echo "DEBUG: Update needed (medium version)"
                 return 0
             elif [ "$latest_big" -eq "$last_big" ] && [ "$latest_medium" -eq "$last_medium" ] && [ "$latest_small" -gt "$last_small" ]; then
+                echo "DEBUG: Update needed (minor version)"
                 return 0
             fi
+            echo "DEBUG: No update needed"
             return 1
           }
           
           echo 'Checking update...'
+          echo "DEBUG: Fetching releases from freetubeapp.io"
           releases=$(wget -qO- https://freetubeapp.io/#download | grep -o 'https://github.com/FreeTubeApp/FreeTube/releases/download/.*/freetube_.*_amd64.deb')
+          echo "DEBUG: Releases found: $releases"
           latest=$(echo "$releases" | egrep -o 'v[0-9]\.[0-9]+\.[0-9](-beta)?' | head -n 1)
+          echo "DEBUG: Latest version detected: $latest"
           echo "PUSH=1" >> $GITHUB_ENV
+          echo "DEBUG: Set PUSH=1"
           if [ -f 'last_update' ]; then
               last_update=$(cat last_update)
+              echo "DEBUG: Last update from file: $last_update"
               if compare "$last_update" "$latest"; then
                 echo 'Update available, downloading latest deb'
                 if download_update "$latest"; then
+                  echo "DEBUG: Calling update_repo for $latest"
                   update_repo "$latest"
+                else
+                  echo "DEBUG: download_update failed"
                 fi
               else
                 echo 'No update available'
+                echo "DEBUG: compare returned false, no update needed"
               fi
           else
             echo 'No version file found, assuming update available'
+            echo "DEBUG: No last_update file, proceeding with download"
             if download_update "$latest"; then
+              echo "DEBUG: Calling update_repo for $latest (no last_update)"
               update_repo "$latest"
+            else
+              echo "DEBUG: download_update failed (no last_update)"
             fi
           fi
+          echo "DEBUG: Final PUSH value: $PUSH"
       - name: Commit repo changes
         if: ${{ env.PUSH == 0 }}
         run: |         
