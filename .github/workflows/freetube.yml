@@ -1,5 +1,4 @@
 # This is a basic workflow to help you get started with Actions
-
 name: Freetube
 
 # Controls when the workflow will run
@@ -37,20 +36,20 @@ jobs:
       - name: Check Update
         run: |
           function update_repo() {
-            ver=$(echo "$1" | tr -d 'v' | cut -d "-" -f 1)
+            ver=$(echo "$1" | tr -d 'v')  # Keep -beta or other suffixes
             reprepro --basedir "$(pwd)/meta" includedeb stable "./freetube_${ver}_amd64.deb"
             if [ -d dists ]; then rm -r dists; fi
             if [ -d pool ]; then rm -r pool; fi
             mv meta/dists ./
             mv meta/pool ./
             checksum_amd64=$(sha256sum pool/main/f/freetube/freetube_${ver}_amd64.deb)
-            sed -i -E "s,[a-f0-9]{64}[ ]+pool/main/f/freetube/freetube_[0-9]\.[0-9]+\.[0-9]_amd64.deb,$checksum_amd64," README.md
+            sed -i -E "s,[a-f0-9]{64}[ ]+pool/main/f/freetube/freetube_[0-9]\.[0-9]+\.[0-9](_beta)?_amd64.deb,$checksum_amd64," README.md
             echo "PUSH=0" >> $GITHUB_ENV
           }
           
           function download_update() {
             if [ -f /tmp/verify.log ]; then rm /tmp/verify.log; fi
-            ver=$(echo "$1" | tr -d 'v' | cut -d "-" -f 1)
+            ver=$(echo "$1" | tr -d 'v')  # Keep -beta or other suffixes
             wget -q "https://github.com/FreeTubeApp/FreeTube/releases/download/$1/freetube_${ver}_amd64.deb" --show-progress
             if [ "$?" -eq "0" ]; then
               echo 'amd64 downloaded'
@@ -59,8 +58,8 @@ jobs:
             fi
             return 1
           }
-           
-          function compare (){
+          
+          function compare() {
             last_ver=$(echo "$1" | tr -d 'v')
             latest_ver=$(echo "$2" | tr -d 'v')
             last_big=$(echo "$last_ver" | cut -d "." -f 1)
@@ -71,21 +70,17 @@ jobs:
             latest_small=$(echo "$latest_ver" | cut -d "." -f 3 | cut -d "-" -f 1)
             if [ "$latest_big" -gt "$last_big" ]; then
                 return 0
-            else
-                if [ "$latest_medium" -gt "$last_medium" ]; then
-                    return 0
-                else
-                    if [ "$latest_small" -gt "$last_small" ]; then
-                        return 0
-                    fi
-                fi
+            elif [ "$latest_big" -eq "$last_big" ] && [ "$latest_medium" -gt "$last_medium" ]; then
+                return 0
+            elif [ "$latest_big" -eq "$last_big" ] && [ "$latest_medium" -eq "$last_medium" ] && [ "$latest_small" -gt "$last_small" ]; then
+                return 0
             fi
             return 1
           }
           
           echo 'Checking update...'
           releases=$(wget -qO- https://freetubeapp.io/#download | grep -o 'https://github.com/FreeTubeApp/FreeTube/releases/download/.*/freetube_.*_amd64.deb')
-          latest=$(echo "$releases" | egrep -o 'v[0-9]\.[0-9]+\.[0-9](-beta)?')
+          latest=$(echo "$releases" | egrep -o 'v[0-9]\.[0-9]+\.[0-9](-beta)?' | head -n 1)
           echo "PUSH=1" >> $GITHUB_ENV
           if [ -f 'last_update' ]; then
               last_update=$(cat last_update)
@@ -99,7 +94,7 @@ jobs:
               fi
           else
             echo 'No version file found, assuming update available'
-            if download_update "$latest" "$releases"; then
+            if download_update "$latest"; then
               update_repo "$latest"
             fi
           fi
