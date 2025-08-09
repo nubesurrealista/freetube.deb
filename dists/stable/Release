@@ -1,19 +1,19 @@
 Origin: https://nubesurrealista.github.io/freetube.deb/
 Label: https://nubesurrealista.github.io/freetube.deb/
 Codename: stable
-Date: Mon, 23 Jun 2025 18:04:59 UTC
+Date: Sat, 09 Aug 2025 14:01:43 UTC
 Architectures: amd64
 Components: main
 Description: Repo para Freetube, uso personal
 MD5Sum:
- 888ea18f7688ca86ff543c2e225c83ad 710 main/binary-amd64/Packages
- 097e159eae1827d2ad218b17addd6f43 481 main/binary-amd64/Packages.gz
+ d5880ab6640737538625a58d1674ea7e 720 main/binary-amd64/Packages
+ 42088379efdf5ce88a8e883dfd58d59d 480 main/binary-amd64/Packages.gz
  24e4d3fb4f100bbfabe5d6978795fc88 193 main/binary-amd64/Release
 SHA1:
- 1b3a78bab251a23586d7c83d2bf44cc344f402bc 710 main/binary-amd64/Packages
- fb523590406441c6a4f48ec555c10d3209e631a7 481 main/binary-amd64/Packages.gz
+ 295e5ad538ebba47ecfeab0a659d45ebaa351224 720 main/binary-amd64/Packages
+ f6da45b9adfae220c7432b4a09c290b4c4663f0a 480 main/binary-amd64/Packages.gz
  2693be499fe45d59663e2f1bdd98fba8f7bf8703 193 main/binary-amd64/Release
 SHA256:
- 80a272bd9218198e6d2f366d729f5a599310f931699335371eddc3fadcc6e988 710 main/binary-amd64/Packages
- 8b7f2dac05e7ca1221d76da7917dd653cd3c6266d1aef0bcdced33c1f71a394c 481 main/binary-amd64/Packages.gz
+ 7745abf8fc3cd512f56086dbe87b2d580cce28faf15e84d9690f9df030c2b84d 720 main/binary-amd64/Packages
+ 75ec47a31ef5c76d67039031cf7466089040c9dee878fd9c4b89b1fffad47027 480 main/binary-amd64/Packages.gz
  d624700350310bde24243f92d7ea89bb446be3404b12cf7c057c91dbc8c9f0f3 193 main/binary-amd64/Release

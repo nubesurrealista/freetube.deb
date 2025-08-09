@@ -4,35 +4,35 @@ Hash: SHA512
 Origin: https://nubesurrealista.github.io/freetube.deb/
 Label: https://nubesurrealista.github.io/freetube.deb/
 Codename: stable
-Date: Mon, 23 Jun 2025 18:04:59 UTC
+Date: Sat, 09 Aug 2025 14:01:43 UTC
 Architectures: amd64
 Components: main
 Description: Repo para Freetube, uso personal
 MD5Sum:
- 888ea18f7688ca86ff543c2e225c83ad 710 main/binary-amd64/Packages
- 097e159eae1827d2ad218b17addd6f43 481 main/binary-amd64/Packages.gz
+ d5880ab6640737538625a58d1674ea7e 720 main/binary-amd64/Packages
+ 42088379efdf5ce88a8e883dfd58d59d 480 main/binary-amd64/Packages.gz
  24e4d3fb4f100bbfabe5d6978795fc88 193 main/binary-amd64/Release
 SHA1:
- 1b3a78bab251a23586d7c83d2bf44cc344f402bc 710 main/binary-amd64/Packages
- fb523590406441c6a4f48ec555c10d3209e631a7 481 main/binary-amd64/Packages.gz
+ 295e5ad538ebba47ecfeab0a659d45ebaa351224 720 main/binary-amd64/Packages
+ f6da45b9adfae220c7432b4a09c290b4c4663f0a 480 main/binary-amd64/Packages.gz
  2693be499fe45d59663e2f1bdd98fba8f7bf8703 193 main/binary-amd64/Release
 SHA256:
- 80a272bd9218198e6d2f366d729f5a599310f931699335371eddc3fadcc6e988 710 main/binary-amd64/Packages
- 8b7f2dac05e7ca1221d76da7917dd653cd3c6266d1aef0bcdced33c1f71a394c 481 main/binary-amd64/Packages.gz
+ 7745abf8fc3cd512f56086dbe87b2d580cce28faf15e84d9690f9df030c2b84d 720 main/binary-amd64/Packages
+ 75ec47a31ef5c76d67039031cf7466089040c9dee878fd9c4b89b1fffad47027 480 main/binary-amd64/Packages.gz
  d624700350310bde24243f92d7ea89bb446be3404b12cf7c057c91dbc8c9f0f3 193 main/binary-amd64/Release
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE+wWtVncab32cj6BE+CMPclgizuIFAmhZl0wACgkQ+CMPclgi
-zuIVjw/+P5ookgu038+tdXRT/h209ZB4qvTpHwuwfYWwDDdT4q89nXymqAFMFCSL
-fqdSL88jP5kIbmI7++d7jP3/c+Gzfwxxv5L7wXx01Ou1Fx5ReuKP6d7BOTILZrrH
-+9zZI8pMtTq6WAWsXF+6SbSsI4Ww8a9VoBZEnb500QSTqNjBNpJCVi24VX3u69mS
-0ShEaRFSaMgGYvMCZatlYRZvz9EgN+uyFQRXnfLgpwfQ45CJk4N3RL6PBXP0ZviN
-xV33HVj+oPf8esla4qElFBeDQV43kZk9oIJGbhxthNcnqTmYn4rtCIMwRpPQHp+2
-6mmYg1Yi0I5izDlPP3eKPxMVq8xt7/etf1q/AJx47o+xb6yzcBQXImfWcSgcoB4A
-qMOLA+noSfONJjHGeCL9XRWFq8KitO/9OjDsvJSHoJTncOcH8F+L6kak1Bx5WoNN
-DaG8lSREHVF/AbxeVunQrHjpoGX+CSXrY/kuqRPLjvKu5Bb08VrkHy+RP6UNL3KX
-hJ8gqpkGSbtSYy0khuGqZj09cuLEihdgryJr8oSb5j/ic4zx8WxTpy9aRde7BPYS
-Phfg6L5loySxuIxofCAubmFujQQSqI7SmmIb8g12woh6tzyaqHgS0Y7WHM98Uf0j
-mmvokX8s31deXGf/QB612erzvXXT4wOeBpjcqQZdcSwtwHSUyMc=
-=GEMd
+iQIzBAEBCgAdFiEE+wWtVncab32cj6BE+CMPclgizuIFAmiXVMgACgkQ+CMPclgi
+zuKsLg/+IfUauO55BrQDqb5muLwz/uUDsF4hPRvXXrrVQfrdTj7JrlY0w2ALbnOQ
+/ViBhUGSO9DwRcnPPSjH1bGzA72hK9mzFXLPOYlgMR9MDZoJmmpUvd9F7lqk8W0h
+Dm2T7aX5+UJ7IaFU4ioXfe64WCdDhnrGoZ0X4sWVjig/bWm3rFP55Qh9GYT4KU4a
+MW7Tc3SAWv3hbote97hg/XgA0FDfWOEmDd4Pd/7n+7Ow4pxip+1t/ZMTBMWEYeQe
+NPs79T1RmJPgXanuh/wSx2aN3aPneQ6E/YfqjTgfRwxjxKjaAoIS3RJOv188uXlb
+ZqJ3x9YKTXUkNcOKc7POdeaUG/ONqbggHmtN8jMd08SZVUKntq8aKuLfEm7iohr6
+5olMdA3g8PGtL7O4NBssz3e7ZQfbmIqwfPQd4cJePwfPvSCdKicV57dt3P8umv9A
+e/43uFBOX+QTDo6zrWGXeMyfFqzvCgelQMzpkESMJc6pP3bJ1QxSInT5+oh6IY1i
+S/ynqNedgsn5jq1vfU3IUiPs9nxUcTDYIjGs5P8KsDjSnnl/FhuWmFCuZfL9kQc7
+CaWQBMXUaGeYFegzUD6kiHOArGZLAyB09/rFg5zuLjh8BLGM6Mf7vmqBwZHvNe9V
+i/p+U5KlszCIOdX03/mmjmwq46wnp93YQA6EjZLcJsOpmVNeSAQ=
+=Al86
 -----END PGP SIGNATURE-----
